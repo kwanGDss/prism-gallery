@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Upload, Search, Filter, Heart, Eye, Tag, Sparkles } from 'lucide-react';
 
 // 임시 데이터 (나중에 Supabase로 교체)
@@ -75,7 +76,7 @@ export default function AIGallery() {
   const [selectedTool, setSelectedTool] = useState('All');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [viewMode, setViewMode] = useState('grid'); // grid or masonry
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<typeof sampleArtworks[0] | null>(null);
 
   const filteredArtworks = sampleArtworks.filter(artwork => {
     const matchesSearch = artwork.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -203,9 +204,11 @@ export default function AIGallery() {
             >
               {/* Image */}
               <div className="relative overflow-hidden">
-                <img
+                <Image
                   src={artwork.imageUrl}
                   alt={artwork.title}
+                  width={400}
+                  height={256}
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 
@@ -295,7 +298,7 @@ export default function AIGallery() {
                 </h3>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                Discover and share stunning AI-generated artwork from the world's most creative minds.
+                Discover and share stunning AI-generated artwork from the world&apos;s most creative minds.
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -397,9 +400,11 @@ export default function AIGallery() {
                 </button>
               </div>
               
-              <img
+              <Image
                 src={selectedImage.imageUrl}
                 alt={selectedImage.title}
+                width={800}
+                height={600}
                 className="w-full h-auto rounded-lg mb-4"
               />
               
